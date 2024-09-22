@@ -6,7 +6,7 @@
 ## Features
 
 - Register and manage Libyan citizens living abroad.
-- Capture detailed personal information, including four-part names (personal, father's, grandfather's, and family name).
+- Capture detailed personal information.
 - Support for recording new births and deaths.
 - Secure login and authentication for embassy staff.
 - Separate frontend and backend with a single unified Docker setup for deployment.
