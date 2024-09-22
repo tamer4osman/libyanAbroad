@@ -73,8 +73,8 @@ Make sure you have the following installed on your machine:
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/USERNAME/libyan-citizens-abroad.git
-cd libyan-citizens-abroad
+git clone https://github.com/tamer4osman/libyanAbroad
+cd libyanAbroad
 ```
 
 ### 2. Set Up Environment Variables
