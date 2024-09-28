@@ -75,7 +75,7 @@ Make sure you have the following installed on your machine:
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/USERNAME/libyan-citizens-abroad.git
+git clone https://github.com/tamer4osman/libyanAbroad.git
 cd libyan-citizens-abroad
 ```
 
