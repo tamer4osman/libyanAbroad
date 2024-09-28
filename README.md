@@ -6,7 +6,7 @@
 ## Features
 
 - Register and manage Libyan citizens living abroad.
-- Capture detailed personal information.
+- Capture detailed personal information, including four-part names (personal, father's, grandfather's, and family name).
 - Support for recording new births and deaths.
 - Secure login and authentication for embassy staff.
 - Separate frontend and backend with a single unified Docker setup for deployment.
@@ -18,6 +18,8 @@
 - [Technology Stack](#technology-stack)
 - [Project Structure](#project-structure)
 - [Setup Instructions](#setup-instructions)
+- [Installation](#installation)
+- [Database Structure](#database-structure)
 - [API Documentation](#api-documentation)
 - [Docker Setup](#docker-setup)
 - [License](#license)
@@ -73,8 +75,8 @@ Make sure you have the following installed on your machine:
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/tamer4osman/libyanAbroad
-cd libyanAbroad
+git clone https://github.com/USERNAME/libyan-citizens-abroad.git
+cd libyan-citizens-abroad
 ```
 
 ### 2. Set Up Environment Variables
@@ -111,6 +113,73 @@ The MySQL database will be automatically initialized. You can connect to it usin
 - Database: `citizen_db`
 - Username: `user`
 - Password: `userpassword`
+
+## Installation
+
+### Frontend
+To run the frontend separately in development mode:
+```bash
+cd frontend/
+npm install
+npm run dev
+```
+
+### Backend
+To run the backend separately in development mode:
+```bash
+cd backend/
+npm install
+npm run dev
+```
+
+## Database Structure
+
+The MySQL database consists of the following tables:
+
+### **citizens**
+| Column         | Type          | Description                                              |
+|----------------|---------------|----------------------------------------------------------|
+| id             | INT           | Primary key, auto-increment                              |
+| national_id    | VARCHAR(255)  | Unique national ID of the citizen                        |
+| first_name     | VARCHAR(255)  | The citizen's first name                                 |
+| father's_name  | VARCHAR(255)  | The citizen's father's name                              |
+| grandfather's_name | VARCHAR(255)  | The citizen's grandfather's name                          |
+| family_name    | VARCHAR(255)  | The citizen's family name                                |
+| address        | TEXT          | Full address, including country and embassy location     |
+| birth_date     | DATE          | Date of birth of the citizen                             |
+| status         | ENUM('alive', 'deceased') | Status of the citizen (alive or deceased)              |
+| created_at     | TIMESTAMP     | Record creation timestamp                                |
+| updated_at     | TIMESTAMP     | Last record update timestamp                             |
+
+### **births**
+| Column         | Type          | Description                                              |
+|----------------|---------------|----------------------------------------------------------|
+| id             | INT           | Primary key, auto-increment                              |
+| citizen_id     | INT           | Foreign key referencing citizens table                   |
+| birth_date     | DATE          | Date of birth of the newborn                             |
+| embassy_id     | INT           | Foreign key referencing the embassy where birth occurred |
+| created_at     | TIMESTAMP     | Record creation timestamp                                |
+| updated_at     | TIMESTAMP     | Last record update timestamp                             |
+
+### **deaths**
+| Column         | Type          | Description                                              |
+|----------------|---------------|----------------------------------------------------------|
+| id             | INT           | Primary key, auto-increment                              |
+| citizen_id     | INT           | Foreign key referencing citizens table                   |
+| death_date     | DATE          | Date of death                                            |
+| embassy_id     | INT           | Foreign key referencing the embassy                      |
+| created_at     | TIMESTAMP     | Record creation timestamp                                |
+| updated_at     | TIMESTAMP     | Last record update timestamp                             |
+
+### **embassies**
+| Column         | Type          | Description                                              |
+|----------------|---------------|----------------------------------------------------------|
+| id             | INT           | Primary key, auto-increment                              |
+| country        | VARCHAR(255)  | Country where the embassy is located                     |
+| address        | TEXT          | Embassy's detailed address                               |
+| contact_info   | TEXT          | Embassy contact details (phone, email)                   |
+| created_at     | TIMESTAMP     | Record creation timestamp                                |
+| updated_at     | TIMESTAMP     | Last record update timestamp                             |
 
 ## API Documentation
 
