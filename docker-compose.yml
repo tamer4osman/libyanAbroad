@@ -3,62 +3,47 @@ version: '3.8'
 services:
   # MySQL Database Service
   db:
-    image: mysql:latest
-    container_name: mysql_db
+    image: mysql:9.0.1
+    container_name: mysql-container
     restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: rootpassword
-      MYSQL_DATABASE: citizen_db
-      MYSQL_USER: user
-      MYSQL_PASSWORD: userpassword
-    volumes:
-      - db_data:/var/lib/mysql
-    networks:
-      - app_network
+      - MYSQL_ROOT_PASSWORD=your_secure_password      # Root password for MySQL
+      - MYSQL_DATABASE=libyan_residents_abroad         # Initial database to create
+      - MYSQL_USER=app_user                           # Non-root MySQL user
+      - MYSQL_PASSWORD=app_user_password              # Password for the MySQL user
     ports:
-      - "3306:3306"
+      - "3306:3306"                                   # Expose MySQL port
+    volumes:
+      - db_data:/var/lib/mysql                        # Persist data using volumes
 
-  # Backend Service (Node.js + Express)
+  # Backend Node.js/Express Service
   backend:
-    build: ./backend
-    container_name: node_backend
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: backend-service
     restart: always
-    environment:
-      DB_HOST: db
-      DB_USER: user
-      DB_PASSWORD: userpassword
-      DB_NAME: citizen_db
-      PORT: 5000
-    networks:
-      - app_network
     ports:
-      - "5000:5000"
+      - "5000:5000"                                   # Expose backend API port
+    environment:
+      - DB_HOST=db                                    # Reference the 'db' service as the host
+      - DB_USER=app_user
+      - DB_PASSWORD=app_user_password
+      - DB_NAME=libyan_residents_abroad
     depends_on:
-      - db
-    volumes:
-      - ./backend:/usr/src/app       # Mount backend source code
-      - /usr/src/app/node_modules    # Mount node_modules as a volume
+      - db                                            # Ensure backend starts after the database
 
-  # Frontend Service (React + Vite)
+  # Frontend React (Vite) Service
   frontend:
-    build: ./frontend
-    container_name: react_frontend
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: frontend-service
     restart: always
-    environment:
-      VITE_API_URL: http://localhost:5000
-    networks:
-      - app_network
     ports:
-      - "3000:3000"
-    volumes:
-      - ./frontend:/usr/src/app       # Mount frontend source code
-      - /usr/src/app/node_modules     # Mount node_modules as a volume
+      - "3000:3000"                                   # Expose frontend port for React
     depends_on:
-      - backend
+      - backend                                       # Ensure frontend starts after backend
 
 volumes:
-  db_data:
-
-networks:
-  app_network:
-    driver: bridge
+  db_data:                                             # Persistent volume for MySQL
