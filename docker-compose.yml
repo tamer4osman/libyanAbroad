@@ -41,7 +41,7 @@ services:
     container_name: frontend-service
     restart: always
     ports:
-      - "3000:3000"                                   # Expose frontend port for React
+      - "3006:3006"                                   # Expose frontend port for React
     depends_on:
       - backend                                       # Ensure frontend starts after backend
 
