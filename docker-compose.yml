@@ -1,22 +1,24 @@
 version: '3.8'
 
 services:
-  # MySQL Database Service
   db:
-    image: mysql:9.0.1
+    image: mysql:8.0
     container_name: mysql-container
     restart: always
     environment:
-      - MYSQL_ROOT_PASSWORD=your_secure_password      # Root password for MySQL
-      - MYSQL_DATABASE=libyan_residents_abroad         # Initial database to create
-      - MYSQL_USER=app_user                           # Non-root MySQL user
-      - MYSQL_PASSWORD=app_user_password              # Password for the MySQL user
+      MYSQL_DATABASE: 'libyan_abroad'
+      MYSQL_USER: 'user'
+      MYSQL_PASSWORD: 'password'
+      MYSQL_ROOT_PASSWORD: 'password'
     ports:
-      - "3306:3306"                                   # Expose MySQL port
+      - '3306:3306'
+    expose:
+      - '3306'
     volumes:
-      - db_data:/var/lib/mysql                        # Persist data using volumes
+      - mysql-db:/var/lib/mysql
+    networks:
+      - app-network
 
-  # Backend Node.js/Express Service
   backend:
     build:
       context: ./backend
@@ -24,16 +26,17 @@ services:
     container_name: backend-service
     restart: always
     ports:
-      - "5000:5000"                                   # Expose backend API port
+      - "5000:5000"
     environment:
-      - DB_HOST=db                                    # Reference the 'db' service as the host
-      - DB_USER=app_user
-      - DB_PASSWORD=app_user_password
-      - DB_NAME=libyan_residents_abroad
+      - DB_HOST=db
+      - DB_USER=user
+      - DB_PASSWORD=password
+      - DB_NAME=libyan_abroad
     depends_on:
-      - db                                            # Ensure backend starts after the database
+      - db
+    networks:
+      - app-network
 
-  # Frontend React (Vite) Service
   frontend:
     build:
       context: ./frontend
@@ -41,9 +44,15 @@ services:
     container_name: frontend-service
     restart: always
     ports:
-      - "3006:3006"                                   # Expose frontend port for React
+      - "5173:5173"
     depends_on:
-      - backend                                       # Ensure frontend starts after backend
+      - backend
+    networks:
+      - app-network
 
 volumes:
-  db_data:                                             # Persistent volume for MySQL
+  mysql-db:
+
+networks:
+  app-network:
+    driver: bridge

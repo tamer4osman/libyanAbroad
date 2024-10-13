@@ -1,6 +1,9 @@
 # Use Node.js official image as a base image
 FROM node:latest
 
+# Install ping
+RUN apt-get update && apt-get install -y iputils-ping
+
 # Set the working directory inside the container
 WORKDIR /usr/src/app
 
