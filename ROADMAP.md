@@ -5,8 +5,8 @@ The purpose of this roadmap is to guide the development process of the Libyan Ci
 ## **Phase 1: Initial Setup**
 
 ### 1. **Setup Repository and Project Structure**
-   - [ ] Create a Git repository for the project.
-   - [ ] Initialize a new Next.js 15 project:
+   - [x] Create a Git repository for the project.
+   - [x] Initialize a new Next.js 15 project:
      ```bash
      npx create-next-app@latest
      ```
