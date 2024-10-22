@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useCallback } from 'react'
+import { useState, useCallback, useEffect } from 'react'
 import { Header } from '@/components/header'
 import { Sidebar } from '@/components/sidebar'
 import { Footer } from '@/components/footer'
@@ -27,17 +27,20 @@ export default function DashboardPage() {
 
   const toggleLanguage = () => {
     setLanguage(prev => prev === 'en' ? 'ar' : 'en')
-    // Update document direction for RTL support
-    document.documentElement.dir = language === 'en' ? 'rtl' : 'ltr'
   }
+
+  useEffect(() => {
+    // Update document direction for RTL support
+    document.documentElement.dir = language === 'ar' ? 'rtl' : 'ltr'
+  }, [language])
 
   return (
     <div className={`min-h-screen ${language === 'ar' ? 'rtl' : 'ltr'}`}>
       <div className="flex flex-col h-screen">
         <div className={`
           fixed top-0 bottom-0 
-          transition-transform duration-300 ease-in-out z-30
-          ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'}
+          transition-all duration-300 ease-in-out z-30
+          ${isSidebarOpen ? 'translate-x-0' : language === 'ar' ? 'translate-x-full' : '-translate-x-full'}
           ${language === 'ar' ? 'right-0' : 'left-0'}
           md:translate-x-0
         `}>
@@ -47,8 +50,7 @@ export default function DashboardPage() {
         <div className={`
           flex-1 flex flex-col
           transition-all duration-300 ease-in-out
-          ${isSidebarOpen ? 'md:ml-64' : ''}
-          ${language === 'ar' ? 'md:mr-64 md:ml-0' : ''}
+          ${isSidebarOpen ? (language === 'ar' ? 'md:mr-64' : 'md:ml-64') : ''}
         `}>
           <div className="sticky top-0 z-20 bg-white dark:bg-gray-800 shadow-sm">
             <div className="container mx-auto">
