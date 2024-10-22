@@ -8,7 +8,7 @@ interface FooterProps {
 
 export const Footer: React.FC<FooterProps> = ({ t }) => {
   return (
-    <footer className="bg-gray-100 dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700 py-4 px-6">
+    <div className="py-4">
       <div className="flex flex-col md:flex-row justify-between items-center">
         <div className="mb-4 md:mb-0">
           <h2 className="text-sm font-semibold text-gray-800 dark:text-white">{t('ministryName')}</h2>
@@ -36,7 +36,6 @@ export const Footer: React.FC<FooterProps> = ({ t }) => {
           </a>
         </div>
       </div>
-    </footer>
+    </div>
   )
 }
-

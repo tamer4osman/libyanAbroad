@@ -18,35 +18,33 @@ export const Header: React.FC<HeaderProps> = ({
   theme,
 }) => {
   return (
-    <header className="bg-white dark:bg-gray-800 shadow-sm">
-      <div className="flex items-center justify-between p-4">
-        <Button
-          variant="ghost"
-          size="icon"
-          className="md:hidden"
-          onClick={toggleSidebar}
-        >
-          <Menu className="h-6 w-6" />
-          <span className="sr-only">Toggle sidebar</span>
+    <div className="flex items-center justify-between py-4">
+      <Button
+        variant="ghost"
+        size="icon"
+        className="md:hidden"
+        onClick={toggleSidebar}
+      >
+        <Menu className="h-6 w-6" />
+        <span className="sr-only">Toggle sidebar</span>
+      </Button>
+      <h2 className="text-xl font-semibold text-gray-800 dark:text-white">
+        {t("dashboard")}
+      </h2>
+      <div className="flex items-center space-x-2">
+        <Button variant="ghost" size="icon" onClick={toggleLanguage}>
+          <Languages className="h-6 w-6" />
+          <span className="sr-only">Toggle language</span>
         </Button>
-        <h2 className="text-xl font-semibold text-gray-800 dark:text-white">
-          {t("dashboard")}
-        </h2>
-        <div className="flex items-center space-x-2">
-          <Button variant="ghost" size="icon" onClick={toggleLanguage}>
-            <Languages className="h-6 w-6" />
-            <span className="sr-only">Toggle language</span>
-          </Button>
-          <Button variant="ghost" size="icon" onClick={toggleTheme}>
-            {theme === "light" ? (
-              <Moon className="h-6 w-6" />
-            ) : (
-              <Sun className="h-6 w-6" />
-            )}
-            <span className="sr-only">Toggle theme</span>
-          </Button>
-        </div>
+        <Button variant="ghost" size="icon" onClick={toggleTheme}>
+          {theme === "light" ? (
+            <Moon className="h-6 w-6" />
+          ) : (
+            <Sun className="h-6 w-6" />
+          )}
+          <span className="sr-only">Toggle theme</span>
+        </Button>
       </div>
-    </header>
+    </div>
   );
 };
