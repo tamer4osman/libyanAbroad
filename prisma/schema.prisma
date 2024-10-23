@@ -1,0 +1,74 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Citizen {
+  id                    Int      @id @default(autoincrement())
+  
+  // Registry Information (معلومات التسجيل)
+  civilRegistryId       String   @unique // رقم القيد
+  registryOffice        String            // مكتب السجل المدني
+  registryCity          String            // المحلة
+  pageNumber           Int?              // رقم الصحيفة
+  
+  // Personal Information (المعلومات الشخصية)
+  firstNameArabic       String            // الاسم الأول
+  fatherNameArabic     String            // اسم الأب
+  grandFatherNameArabic String            // اسم الجد
+  familyNameArabic     String            // اسم العائلة
+  motherFullNameArabic String            // اسم الأم الكامل
+  
+  // Birth Information (معلومات الميلاد)
+  dateOfBirth          DateTime          // تاريخ الميلاد
+  placeOfBirthType     BirthPlaceType   // نوع الولادة (منزل/مستشفى)
+  placeOfBirth         String            // مكان الميلاد
+  birthCity            String            // محل الميلاد
+  gender               Gender            // الجنس
+  
+  // Additional Information
+  nationality          String    @default("Libyan") // الجنسية
+  bloodType           BloodType?         // فصيلة الدم
+  religion            String    @default("Muslim")  // الديانة
+  
+  // Administrative
+  certificateNumber    String?           // رقم الشهادة
+  certificateDate      DateTime?         // تاريخ إصدار الشهادة
+  registrationDate     DateTime  @default(now())
+  lastUpdated         DateTime  @updatedAt
+  notes               String?   @db.Text  // ملاحظات
+
+  @@map("citizens")
+}
+
+enum Gender {
+  MALE    // ذكر
+  FEMALE  // أنثى
+}
+
+enum BirthPlaceType {
+  HOSPITAL  // مستشفى
+  HOME      // منزل
+  OTHER     // أخرى
+}
+
+enum BloodType {
+  A_POSITIVE
+  A_NEGATIVE
+  B_POSITIVE
+  B_NEGATIVE
+  O_POSITIVE
+  O_NEGATIVE
+  AB_POSITIVE
+  AB_NEGATIVE
+}
