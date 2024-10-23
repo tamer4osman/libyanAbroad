@@ -19,34 +19,70 @@ model Citizen {
   // Registry Information (معلومات التسجيل)
   civilRegistryId       String   @unique // رقم القيد
   registryOffice        String            // مكتب السجل المدني
-  registryCity          String            // المحلة
-  pageNumber           Int?              // رقم الصحيفة
+  registryCity          String            // المدينة
+  pageNumber            Int?              // رقم الصحيفة
   
   // Personal Information (المعلومات الشخصية)
   firstNameArabic       String            // الاسم الأول
-  fatherNameArabic     String            // اسم الأب
+  fatherNameArabic      String            // اسم الأب
   grandFatherNameArabic String            // اسم الجد
-  familyNameArabic     String            // اسم العائلة
-  motherFullNameArabic String            // اسم الأم الكامل
+  familyNameArabic      String            // اسم العائلة
+  firstNameEnglish      String?           // الاسم الأول بالإنجليزية
+  fatherNameEnglish     String?           // اسم الأب بالإنجليزية
+  grandFatherNameEnglish String?          // اسم الجد بالإنجليزية
+  familyNameEnglish     String?           // اسم العائلة بالإنجليزية
+  nationalNumber        String   @unique  // الرقم الوطني
+  personalPhotoUrl      String?           // رابط الصورة الشخصية
   
   // Birth Information (معلومات الميلاد)
-  dateOfBirth          DateTime          // تاريخ الميلاد
-  placeOfBirthType     BirthPlaceType   // نوع الولادة (منزل/مستشفى)
-  placeOfBirth         String            // مكان الميلاد
-  birthCity            String            // محل الميلاد
-  gender               Gender            // الجنس
+  dateOfBirth           DateTime          // تاريخ الميلاد
+  placeOfBirthType      BirthPlaceType    // نوع الولادة (منزل/مستشفى)
+  placeOfBirth          String            // مكان الميلاد (المنطقة)
+  birthCity             String            // المدينة
+  countryOfBirth        String   @default("Libya") // دولة الميلاد
+  registrationNumber    String?           // رقم تسجيل الطفل
   
-  // Additional Information
-  nationality          String    @default("Libyan") // الجنسية
-  bloodType           BloodType?         // فصيلة الدم
-  religion            String    @default("Muslim")  // الديانة
+  // Father Information (معلومات الأب)
+  fatherFirstNameArabic       String            // الاسم الشخصي للأب
+  fatherFatherNameArabic      String            // اسم والد الأب
+  fatherGrandFatherNameArabic String            // اسم جد الأب
+  fatherFamilyNameArabic      String            // لقب الأب
+  fatherFirstNameEnglish      String?           // الاسم الشخصي للأب بالإنجليزية
+  fatherFatherNameEnglish     String?           // اسم والد الأب بالإنجليزية
+  fatherGrandFatherNameEnglish String?          // اسم جد الأب بالإنجليزية
+  fatherFamilyNameEnglish     String?           // لقب الأب بالإنجليزية
+  fatherNationalNumber        String?           // الرقم الوطني للأب
+  fatherNationality           String   @default("Libyan") // جنسية الأب
+  fatherProfession            String?           // مهنة الأب
   
-  // Administrative
-  certificateNumber    String?           // رقم الشهادة
-  certificateDate      DateTime?         // تاريخ إصدار الشهادة
-  registrationDate     DateTime  @default(now())
-  lastUpdated         DateTime  @updatedAt
-  notes               String?   @db.Text  // ملاحظات
+  // Mother Information (معلومات الأم)
+  motherFirstNameArabic       String            // الاسم الشخصي للأم
+  motherFatherNameArabic      String            // اسم والد الأم
+  motherGrandFatherNameArabic String            // اسم جد الأم
+  motherFamilyNameArabic      String            // لقب الأم
+  motherFirstNameEnglish      String?           // الاسم الشخصي للأم بالإنجليزية
+  motherFatherNameEnglish     String?           // اسم والد الأم بالإنجليزية
+  motherGrandFatherNameEnglish String?          // اسم جد الأم بالإنجليزية
+  motherFamilyNameEnglish     String?           // لقب الأم بالإنجليزية
+  motherNationalNumber        String?           // الرقم الوطني للأم
+  motherNationality           String   @default("Libyan") // جنسية الأم
+  motherProfession            String?           // مهنة الأم
+
+  // Additional Information (معلومات إضافية)
+  nationality           String   @default("Libyan") // الجنسية
+  bloodType             BloodType?         // فصيلة الدم
+  religion              String   @default("Muslim")  // الديانة
+  
+  // Administrative Information (معلومات إدارية)
+  certificateNumber     String?            // رقم الشهادة
+  certificateDate       DateTime?          // تاريخ إصدار الشهادة
+  registrationDate      DateTime  @default(now()) // تاريخ التسجيل
+  placeOfIssue          String?            // مكان إصدار الشهادة
+  dateOfIssue           DateTime?          // تاريخ إصدار الشهادة
+  registrarName         String?            // اسم المسجل
+  documentType          String   @default("Birth Certificate") // نوع الوثيقة
+  lastUpdated           DateTime  @updatedAt      // آخر تحديث تلقائي
+  notes                 String?   @db.Text        // ملاحظات
 
   @@map("citizens")
 }
@@ -72,3 +108,4 @@ enum BloodType {
   AB_POSITIVE
   AB_NEGATIVE
 }
+
