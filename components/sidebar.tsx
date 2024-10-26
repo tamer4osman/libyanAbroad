@@ -24,7 +24,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ t, language }) => {
         <nav className="flex-1 px-4">
           <ul className="space-y-2">
             <li>
-              <Link href="/dashboard" passHref>
+              <Link href="/" passHref>
                 <Button 
                   variant="ghost" 
                   className="w-full justify-start text-white hover:text-green-200 hover:bg-green-700"
