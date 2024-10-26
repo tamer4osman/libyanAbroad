@@ -1,5 +1,3 @@
-// @/lib/translations.ts
-
 export const translations = {
   en: {
     systemName: "LMFA System",
@@ -21,6 +19,19 @@ export const translations = {
     privacyPolicy: "Privacy Policy",
     termsOfService: "Terms of Service",
     contactUs: "Contact Us",
+    // New translations for the citizens page
+    addCitizen: "Add Citizen",
+    addNewCitizen: "Add New Citizen",
+    civilRegistryId: "Civil Registry ID",
+    nationalNumber: "National Number",
+    firstNameArabic: "First Name (Arabic)",
+    fatherNameArabic: "Father's Name (Arabic)",
+    familyNameArabic: "Family Name (Arabic)",
+    dateOfBirth: "Date of Birth",
+    birthCity: "Birth City",
+    bloodType: "Blood Type",
+    selectBloodType: "Select Blood Type",
+    name: "Name",
   },
   ar: {
     systemName: "نظام وزارة الخارجية الليبية",
@@ -42,6 +53,19 @@ export const translations = {
     privacyPolicy: "سياسة الخصوصية",
     termsOfService: "شروط الخدمة",
     contactUs: "اتصل بنا",
+    // New translations for the citizens page
+    addCitizen: "إضافة مواطن",
+    addNewCitizen: "إضافة مواطن جديد",
+    civilRegistryId: "رقم القيد المدني",
+    nationalNumber: "الرقم الوطني",
+    firstNameArabic: "الاسم الأول (بالعربية)",
+    fatherNameArabic: "اسم الأب (بالعربية)",
+    familyNameArabic: "اسم العائلة (بالعربية)",
+    dateOfBirth: "تاريخ الميلاد",
+    birthCity: "مدينة الميلاد",
+    bloodType: "فصيلة الدم",
+    selectBloodType: "اختر فصيلة الدم",
+    name: "الاسم",
   },
 };
 
